@@ -311,6 +311,193 @@
             width: 100%;
             border-radius: 10px;
         }
+        /* Estilos para móviles (pantallas menores a 768px) */
+@media (max-width: 768px) {
+    body {
+        padding-top: 20px; /* Reducimos el padding superior */
+    }
+
+    .newspaper {
+        padding: 0.5in; /* Reducimos el padding del contenedor principal */
+    }
+
+    .header-title {
+        font-size: 60px; /* Reducimos el tamaño del título principal */
+    }
+
+    .headline h2 {
+        font-size: 32px; /* Reducimos el tamaño del subtítulo */
+    }
+
+    .headline h3 {
+        font-size: 100px; /* Reducimos el tamaño del texto "Valentine?" */
+        margin-top: -20px; /* Ajustamos el margen superior */
+    }
+
+    .image-text-container {
+        flex-direction: column; /* Cambiamos a disposición en columna */
+        align-items: center; /* Centramos los elementos */
+        gap: 10px; /* Reducimos el espacio entre la imagen y el texto */
+    }
+
+    .image-text-container .image {
+        margin-right: 0; /* Eliminamos el margen derecho */
+        max-width: 100%; /* Hacemos que la imagen ocupe el ancho completo */
+    }
+
+    .image-text-container .text {
+        max-width: 100%; /* Hacemos que el texto ocupe el ancho completo */
+        text-align: center; /* Centramos el texto */
+    }
+
+    .image-text-container .text p {
+        font-size: 18px; /* Reducimos el tamaño de la fuente del texto */
+    }
+
+    .accept-btn {
+        width: 100%; /* Hacemos que el botón ocupe el ancho completo */
+        font-size: 16px; /* Reducimos el tamaño de la fuente del botón */
+    }
+
+    .coupons {
+        flex-direction: column; /* Cambiamos a disposición en columna */
+        gap: 10px; /* Reducimos el espacio entre los cupones */
+    }
+
+    .coupon {
+        width: 100%; /* Hacemos que los cupones ocupen el ancho completo */
+        font-size: 14px; /* Reducimos el tamaño de la fuente de los cupones */
+    }
+
+    .reasons-title {
+        font-size: 50px; /* Reducimos el tamaño del título de las razones */
+    }
+
+    .reasons-title .reason-one {
+        font-size: 60px; /* Reducimos el tamaño del número "5" */
+    }
+
+    .reasons-title .reason-two {
+        font-size: 30px; /* Reducimos el tamaño del texto "Razones" */
+        margin-top: -10px; /* Ajustamos el margen superior */
+    }
+
+    .reasons-title .reason-three {
+        font-size: 40px; /* Reducimos el tamaño del texto "por las que eres" */
+    }
+
+    .reasons-container {
+        flex-direction: column; /* Cambiamos a disposición en columna */
+        align-items: center; /* Centramos los elementos */
+    }
+
+    .reasons-container .image {
+        max-width: 100%; /* Hacemos que la imagen ocupe el ancho completo */
+        margin-top: 20px; /* Añadimos un margen superior */
+    }
+
+    .reasons-list {
+        margin-top: 20px; /* Reducimos el margen superior */
+        font-size: 18px; /* Reducimos el tamaño de la fuente de las razones */
+    }
+
+    .reason-number {
+        font-size: 30px; /* Reducimos el tamaño de los números de las razones */
+    }    .new-section {
+        flex-direction: column; /* Cambiamos a disposición en columna */
+        padding: 10px; /* Reducimos el padding */
+        gap: 10px; /* Reducimos el espacio entre elementos */
+    }
+
+    .new-section h2 {
+        font-size: 30px; /* Reducimos el tamaño del título */
+    }
+
+    .new-section ul {
+        font-size: 18px; /* Reducimos el tamaño de la fuente de la lista */
+        margin-top: 20px; /* Reducimos el margen superior */
+    }
+
+    .new-section ul li {
+        font-size: 20px; /* Reducimos el tamaño de la fuente de los elementos de la lista */
+    }
+
+    .new-section .image-left,
+    .new-section .image-right {
+        max-width: 100px; /* Reducimos el tamaño de las imágenes laterales */
+        margin-top: 10px; /* Ajustamos el margen superior */
+    }
+
+    .new-section .image-left img,
+    .new-section .image-right img {
+        width: 100%; /* Hacemos que las imágenes ocupen el ancho completo */
+    }
+
+    /* Ajustes adicionales para pantallas muy pequeñas (menores a 480px) */
+    @media (max-width: 480px) {
+        .header-title {
+            font-size: 50px; /* Reducimos aún más el tamaño del título principal */
+        }
+
+        .headline h2 {
+            font-size: 24px; /* Reducimos el tamaño del subtítulo */
+        }
+
+        .headline h3 {
+            font-size: 80px; /* Reducimos el tamaño del texto "Valentine?" */
+        }
+
+        .image-text-container .text p {
+            font-size: 16px; /* Reducimos el tamaño de la fuente del texto */
+        }
+
+        .accept-btn {
+            font-size: 14px; /* Reducimos el tamaño de la fuente del botón */
+        }
+
+        .coupon {
+            font-size: 12px; /* Reducimos el tamaño de la fuente de los cupones */
+        }
+
+        .reasons-title {
+            font-size: 40px; /* Reducimos el tamaño del título de las razones */
+        }
+
+        .reasons-title .reason-one {
+            font-size: 50px; /* Reducimos el tamaño del número "5" */
+        }
+
+        .reasons-title .reason-two {
+            font-size: 24px; /* Reducimos el tamaño del texto "Razones" */
+        }
+
+        .reasons-title .reason-three {
+            font-size: 30px; /* Reducimos el tamaño del texto "por las que eres" */
+        }
+
+        .reasons-list {
+            font-size: 16px; /* Reducimos el tamaño de la fuente de las razones */
+        }
+
+        .reason-number {
+            font-size: 24px; /* Reducimos el tamaño de los números de las razones */
+        }
+
+        .new-section h2 {
+            font-size: 24px; /* Reducimos el tamaño del título */
+        }
+
+        .new-section ul li {
+            font-size: 16px; /* Reducimos el tamaño de la fuente de los elementos de la lista */
+        }
+
+        .new-section .image-left,
+        .new-section .image-right {
+            max-width: 80px; /* Reducimos aún más el tamaño de las imágenes laterales */
+        }
+    }
+    }
+
     </style>
 </head>
 <body>
