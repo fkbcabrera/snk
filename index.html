@@ -26,6 +26,19 @@
             text-align: center;
             margin-top: 0.5in;
         }
+        @keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+.header-title {
+    animation: slideIn 0.5s ease forwards;
+}
         .header-top {
             display: flex;
             justify-content: space-between;
@@ -68,6 +81,7 @@
         }
         .accept-btn {
             background: #d63384;
+            transition: background-color 0.3s ease, transform 0.2s ease;
             color: white;
             border: none;
             padding: 12px 24px;
@@ -81,6 +95,7 @@
         }
         .accept-btn:hover {
             background: #b82b6c;
+            transform: scale(1.05); /* Aumenta ligeramente el tamaño */
         }
         .coupons {
             display: flex;
@@ -88,11 +103,15 @@
             margin-top: 30px;
         }
         .coupon {
-            border: 2px dashed #d63384;
-            padding: 15px;
-            background: #fbe7eb;
-            font-size: 16px;
-        }
+    border: 2px dashed #d63384;
+    padding: 15px;
+    background: #fbe7eb;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.4s ease-in-out;
+    animation: levitate 4s ease-in-out infinite;
+    position: relative;
+}
 
         /* Estilo para las líneas alrededor de "¡TE HAN ELEGIDO!" */
         .te-han-elegido {
@@ -201,14 +220,35 @@
 
         /* Estilos para las razones */
         .reasons-list {
-            margin-top: 150px;
-            text-align: left;
-            font-family: 'Charm', cursive; /* Se aplica la fuente Charm aquí */
-            font-size: 24px;
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Centra la lista de razones */
-        }
+    margin-top: 150px;
+    text-align: left;
+    font-family: 'Charm', cursive;
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+}
+
+.reasons-list.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reason {
+    margin: 10px 0;
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.6s ease;
+    transition-delay: calc(var(--index) * 0.2s);
+}
+
+.reason.show {
+    opacity: 1;
+    transform: translateX(0);
+}
         .reasons-list .reason {
             margin: 10px 0;
         }
@@ -311,6 +351,64 @@
             width: 100%;
             border-radius: 10px;
         }
+        .reason, .coupon, .new-section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.5s ease;
+        }
+
+        .reason.show, .coupon.show, .new-section.show {
+    opacity: 1;
+    transform: translateY(0);
+        }
+        .image img {
+    transition: transform 0.3s ease;
+}
+
+.image:hover img {
+    transform: scale(1.05) rotate(1deg);
+}
+        @keyframes confetti-fall {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(100vh) rotate(720deg); }
+}
+.like-container {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 15px;
+}
+
+.like-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    transition: transform 0.3s ease;
+}
+
+.like-btn:hover {
+    transform: scale(1.2);
+}
+
+.like-btn.liked {
+    animation: heartBeat 0.6s ease;
+}
+
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.3); }
+    50% { transform: scale(0.9); }
+    75% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.like-counter {
+    font-family: 'DM Serif Text', serif;
+    color: #d63384;
+    margin-left: 5px;
+    font-size: 20px;
+}
+        
         /* Estilos para móviles (pantallas menores a 768px) */
 @media (max-width: 768px) {
     body {
@@ -496,8 +594,57 @@
             max-width: 80px; /* Reducimos aún más el tamaño de las imágenes laterales */
         }
     }
+    @keyframes confetti-fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
     }
+    100% {
+        transform: translateY(100vh) rotate(var(--rotation, 0deg));
+        opacity: 0;
+    }
+}
+    }
+    @keyframes particle-float {
+    0% { transform: translate(0, 0); opacity: 1; }
+    100% { transform: translate(var(--particle-x, 0), -40px); opacity: 0; }
+}
+@keyframes levitate {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(2deg); }
+}
 
+.coupon:hover {
+    animation: levitateHover 2s ease-in-out infinite;
+    z-index: 1;
+}
+
+@keyframes levitateHover {
+    0%, 100% { transform: translateY(-5px) rotate(-1deg); }
+    50% { transform: translateY(-20px) rotate(2deg); }
+}
+
+/* Efecto de brillo al hover */
+.coupon::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: 0 0 20px rgba(214, 51, 132, 0.3);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.coupon:hover::after {
+    opacity: 1;
+}
+@keyframes couponPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
     </style>
 </head>
 <body>
@@ -547,22 +694,42 @@
                 <div class="reason">
                     <span class="reason-number">1.</span>
                     <span class="reason-text">Tienes la sonrisa mas linda del universo.</span>
+                    <div class="like-container">
+                        <button class="like-btn">❤️</button>
+                        <span class="like-counter">0</span>
+                    </div>
                 </div>
                 <div class="reason">
                     <span class="reason-number">2.</span>
                     <span class="reason-text">Contigo cualquier dia se siente muy especial.</span>
+                    <div class="like-container">
+                        <button class="like-btn">❤️</button>
+                        <span class="like-counter">0</span>
+                    </div>
                 </div>
                 <div class="reason">
                     <span class="reason-number">3.</span>
                     <span class="reason-text">Eres el amor de mi vida.</span>
+                    <div class="like-container">
+                        <button class="like-btn">❤️</button>
+                        <span class="like-counter">0</span>
+                    </div>
                 </div>
                 <div class="reason">
                     <span class="reason-number">4.</span>
                     <span class="reason-text">Eres mi persona favorita para compartir momentos.</span>
+                    <div class="like-container">
+                        <button class="like-btn">❤️</button>
+                        <span class="like-counter">0</span>
+                    </div>
                 </div>
                 <div class="reason">
                     <span class="reason-number">5.</span>
                     <span class="reason-text">No me imagino a nadie mas a mi lado en este San Valentin.</span>
+                    <div class="like-container">
+                        <button class="like-btn">❤️</button>
+                        <span class="like-counter">0</span>
+                    </div>
                 </div>
             </div>
             <div class="image">
@@ -588,5 +755,159 @@
             </div>
         </section>
     </div>
+    <div id="countdown"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const acceptButton = document.querySelector('.accept-btn');
+    
+            acceptButton.addEventListener('click', function() {
+                launchConfetti();
+                acceptButton.textContent = '¡Gracias por aceptar!';
+    
+                // Cambiar el estilo del botón
+                acceptButton.style.backgroundColor = '#28a745'; // Cambia a verde
+                acceptButton.style.transform = 'scale(1.1)'; // Aumenta el tamaño
+    
+                // Mostrar un mensaje de alerta
+                setTimeout(() => {
+                    // Restablecer el botón después de 2 segundos
+                    acceptButton.textContent = '¿Aceptas la misión de ser mi Valentín?';
+                    acceptButton.style.backgroundColor = '#d63384'; // Regresar al color original
+                    acceptButton.style.transform = 'scale(1)'; // Regresar al tamaño original
+                }, 2000);
+            });
+        });
+
+        //INTERACTIVIDAD CON LOS CUPONES 
+        document.querySelectorAll('.coupon').forEach(coupon => {
+    coupon.addEventListener('click', () => {
+        coupon.style.transform = 'rotate(5deg)';
+        coupon.style.background = '#fff';
+        setTimeout(() => {
+            coupon.style.transform = 'none';
+            coupon.style.background = '#fbe7eb';
+        }, 500);
+    });
+});
+
+        const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+        }
+    });
+});
+
+document.querySelectorAll('.reason, .coupon, .new-section').forEach((el) => {
+    observer.observe(el);
+});
+
+function launchConfetti() {
+    const particles = 100;
+    const confettiContainer = document.createElement('div');
+    confettiContainer.style.position = 'fixed';
+    confettiContainer.style.top = '0';
+    confettiContainer.style.left = '0';
+    confettiContainer.style.width = '100%';
+    confettiContainer.style.height = '100%';
+    confettiContainer.style.pointerEvents = 'none'; // Evita que las partículas bloqueen clics
+    confettiContainer.style.zIndex = '9999'; // Asegura que el confeti esté por encima de todo
+
+    for (let i = 0; i < particles; i++) {
+        const confetti = document.createElement('div');
+        const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+        const randomX = Math.random() * window.innerWidth;
+        const randomRotation = Math.random() * 720; // Genera un valor aleatorio para la rotación
+        const animationDuration = Math.random() * 3 + 2;
+
+        // Aplica la rotación aleatoria como variable CSS
+        confetti.style.setProperty('--rotation', `${randomRotation}deg`);
+
+        confetti.style.cssText = `
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: ${randomColor};
+            top: 0;
+            left: ${randomX}px;
+            border-radius: 50%;
+            animation: confetti-fall ${animationDuration}s linear forwards;
+        `;
+
+        // Eliminar la partícula cuando termine la animación
+        confetti.addEventListener('animationend', () => {
+            confetti.remove();
+        });
+
+        confettiContainer.appendChild(confetti);
+    }
+
+    document.body.appendChild(confettiContainer);
+
+    // Eliminar el contenedor de confeti después de que todas las partículas hayan terminado
+    setTimeout(() => {
+        confettiContainer.remove();
+    }, 5000); // 5 segundos (ajusta según la duración máxima de la animación)
+}
+document.querySelectorAll('.like-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const counter = this.nextElementSibling;
+        const currentCount = parseInt(counter.textContent);
+        const newCount = this.classList.contains('liked') ? currentCount - 1 : currentCount + 1;
+        
+        this.classList.toggle('liked');
+        counter.textContent = newCount;
+        
+        // Efecto de partículas
+        if (!this.classList.contains('liked')) return;
+        const particles = 3;
+        for (let i = 0; i < particles; i++) {
+            const particle = document.createElement('div');
+            const randomX = Math.random() * 40 - 20; // Valor aleatorio entre -20 y 20
+
+            // Aplicar el valor aleatorio como variable CSS
+            particle.style.setProperty('--particle-x', `${randomX}px`);
+
+            particle.style.cssText = `
+                position: absolute;
+                width: 6px;
+                height: 6px;
+                background: #${Math.floor(Math.random()*16777215).toString(16)};
+                border-radius: 50%;
+                pointer-events: none;
+                animation: particle-float ${Math.random() * 1 + 0.5}s ease-out;
+            `;
+            this.parentElement.appendChild(particle);
+            
+            setTimeout(() => particle.remove(), 500);
+        }
+    });
+});
+const reasonsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            document.querySelector('.reasons-list').classList.add('revealed');
+            
+            // Revelación progresiva de cada razón
+            document.querySelectorAll('.reason').forEach((reason, index) => {
+                reason.style.setProperty('--index', index);
+                setTimeout(() => {
+                    reason.classList.add('show');
+                }, index * 200);
+            });
+        }
+    });
+});
+
+reasonsObserver.observe(document.querySelector('.reasons-title'));
+document.querySelectorAll('.coupon').forEach(coupon => {
+    coupon.addEventListener('click', () => {
+        coupon.style.animation = 'couponPop 0.5s ease';
+        setTimeout(() => {
+            coupon.style.animation = '';
+        }, 500);
+    });
+});
+    </script>
 </body>
 </html>
